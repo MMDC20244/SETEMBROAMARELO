@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setembro Amarelo — Escutar é estar presente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#F5B700;
+    --yellow-deep:#B8830A;
+    --yellow-pale:#FFF3D2;
+    --ink:#191E36;
+    --ink-soft:#454B6B;
+    --paper:#FFFCF6;
+    --paper-alt:#FFF7E4;
+    --sage:#4E6B4C;
+    --sage-pale:#E8EFE4;
+    --whatsapp:#25D366;
+    --whatsapp-deep:#1DA851;
+    --line:#E9DFC4;
+    --white:#FFFFFF;
+    --radius:10px;
+    --measure:66ch;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    color:var(--ink);
+    line-height:1.15;
+    margin:0;
+  }
+  p{margin:0 0 1em; max-width:var(--measure);}
+  a{color:var(--yellow-deep);}
+  img{max-width:100%;display:block;}
+  :focus-visible{outline:3px solid var(--sage); outline-offset:2px;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  .section{padding:88px 0;}
+  .section-alt{background:var(--paper-alt);}
+  .eyebrow{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  ul{padding-left:0; list-style:none; margin:0;}
+
+  /* skip link */
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--ink); color:var(--white);
+    padding:10px 16px; z-index:100;
+  }
+  .skip-link:focus{left:12px; top:12px;}
+
+  /* crisis bar */
+  .crisis-bar{
+    background:var(--ink);
+    color:var(--white);
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    text-align:center;
+    font-size:14.5px;
+  }
+  .crisis-bar strong{color:var(--yellow); font-weight:600;}
+  .crisis-bar a.call{
+    background:var(--yellow);
+    color:var(--ink);
+    text-decoration:none;
+    padding:6px 16px;
+    border-radius:999px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+
+  /* header / hero */
+  header.hero{
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    align-items:center;
+    gap:40px;
+    padding:76px 0 64px;
+  }
+  .hero h1{
+    font-size:clamp(38px,5.2vw,64px);
+    letter-spacing:-0.5px;
+  }
+  .hero-theme{
+    display:inline-block;
+    margin-top:22px;
+    padding:8px 16px;
+    background:var(--yellow-pale);
+    border:1px solid var(--yellow);
+    border-radius:999px;
+    color:var(--yellow-deep);
+    font-size:14px;
+    font-weight:600;
+  }
+  .hero-lede{
+    margin-top:22px;
+    font-size:19px;
+    color:var(--ink-soft);
+  }
+  .hero-actions{
+    margin-top:30px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:13px 24px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    border:1.5px solid transparent;
+  }
+  .btn-primary{background:var(--ink); color:var(--white);}
+  .btn-primary:hover{background:var(--ink-soft);}
+  .btn-ghost{border-color:var(--ink); color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink); color:var(--white);}
+
+  /* ribbon illustration */
+  .ribbon-frame{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* section headings */
+  .section-head{
+    max-width:640px;
+    margin-bottom:44px;
+  }
+  .section-head h2{font-size:clamp(28px,3.4vw,38px);}
+
+  /* history timeline */
+  .timeline{
+    border-left:2px solid var(--line);
+    padding-left:32px;
+    display:flex;
+    flex-direction:column;
+    gap:38px;
+  }
+  .timeline-item{position:relative;}
+  .timeline-item::before{
+    content:"";
+    position:absolute;
+    left:-38px;
+    top:6px;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--yellow);
+    border:2px solid var(--ink);
+  }
+  .timeline-year{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    color:var(--yellow-deep);
+    margin-bottom:4px;
+    display:block;
+  }
+  .timeline-item p{color:var(--ink-soft); font-size:15.5px;}
+
+  /* stats */
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .stat{
+    background:var(--paper);
+    padding:34px 28px;
+  }
+  .stat-num{
+    font-family:'Fraunces', serif;
+    font-size:clamp(30px,4vw,42px);
+    color:var(--ink);
+    display:block;
+  }
+  .stat-label{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    margin-top:6px;
+  }
+  .stat-note{
+    margin-top:26px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  /* two column editorial */
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+
+  /* signs list */
+  .signs-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .sign-row{
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:18px;
+    padding:22px 0;
+    border-top:1px solid var(--line);
+  }
+  .sign-row:last-child{border-bottom:1px solid var(--line);}
+  .sign-mark{
+    font-family:'Fraunces', serif;
+    font-size:20px;
+    color:var(--yellow-deep);
+  }
+  .sign-row h3{font-size:17px; margin-bottom:4px;}
+  .sign-row p{font-size:15px; color:var(--ink-soft); margin:0;}
+
+  /* myths vs facts */
+  .mf-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);
+  }
+  .mf-row:last-child{border-bottom:1px solid var(--line);}
+  .mf-cell{padding:22px 24px;}
+  .mf-cell.myth{border-right:1px solid var(--line);}
+  .mf-tag{
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.2px;
+    margin-bottom:6px;
+    display:block;
+  }
+  .mf-cell.myth .mf-tag{color:#9A5B3E;}
+  .mf-cell.fact .mf-tag{color:var(--sage);}
+  .mf-cell p{font-size:15px; margin:0; color:var(--ink-soft);}
+  .mf-head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    margin-bottom:0;
+  }
+  .mf-head div{
+    padding:0 24px 14px;
+    font-family:'Fraunces', serif;
+    font-size:19px;
+  }
+  .mf-head div:first-child{border-right:1px solid transparent;}
+
+  /* help steps */
+  .help-list{
+    counter-reset:helpstep;
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+  .help-item{
+    display:grid;
+    grid-template-columns:38px 1fr;
+    gap:18px;
+  }
+  .help-item::before{
+    counter-increment:helpstep;
+    content:counter(helpstep);
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    color:var(--white);
+    background:var(--ink);
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .help-item h3{font-size:17px; margin-bottom:4px;}
+  .help-item p{font-size:15px; color:var(--ink-soft); margin:0;}
+
+  /* help banner */
+  .help-banner{
+    background:var(--ink);
+    color:var(--white);
+    border-radius:16px;
+    padding:48px 44px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  .help-banner h2{color:var(--white); font-size:clamp(26px,3vw,34px);}
+  .help-banner p{color:#C9CCDB; font-size:15.5px;}
+  .contact-list{display:flex; flex-direction:column; gap:16px;}
+  .contact-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-bottom:1px solid #33395A;
+    padding-bottom:14px;
+  }
+  .contact-item:last-child{border-bottom:none;}
+  .contact-name{font-size:15px; color:#C9CCDB;}
+  .contact-value{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    color:var(--yellow);
+  }
+
+  /* participate cards - deliberately not uniform card grid, list style */
+  .participate-list{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:0;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .participate-item{
+    padding:28px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .participate-item h3{font-size:17px; margin-bottom:8px;}
+  .participate-item p{font-size:14.5px; color:var(--ink-soft); margin:0;}
+
+  /* chatbot section */
+  .chat-panel{
+    display:grid;
+    grid-template-columns:0.95fr 1.05fr;
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--white);
+  }
+  .chat-intro{
+    padding:44px 40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:16px;
+  }
+  .chat-intro p{color:var(--ink-soft); font-size:15.5px;}
+  .chat-bullets{display:flex; flex-direction:column; gap:12px; margin:8px 0 4px;}
+  .chat-bullets li{
+    display:flex;
+    gap:10px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .chat-bullets li::before{
+    content:"•";
+    color:var(--yellow-deep);
+    font-weight:700;
+  }
+  .chat-frame-wrap{
+    background:var(--yellow-pale);
+    border-left:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+  }
+  .chat-frame-bar{
+    background:var(--ink);
+    color:var(--white);
+    padding:12px 18px;
+    font-size:13.5px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .chat-frame-bar .dot{width:8px; height:8px; border-radius:50%; background:var(--yellow); display:inline-block;}
+  .chat-frame{
+    flex:1;
+    width:100%;
+    min-height:420px;
+    border:none;
+    background:var(--white);
+  }
+  .chat-fallback{
+    padding:28px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .chat-fallback code{
+    display:block;
+    margin-top:8px;
+    padding:10px 12px;
+    background:var(--paper-alt);
+    border:1px solid var(--line);
+    border-radius:6px;
+    font-size:12.5px;
+    word-break:break-all;
+  }
+  .btn-chat{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--ink);
+    color:var(--white);
+    padding:13px 24px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    width:fit-content;
+  }
+  .btn-chat:hover{background:var(--ink-soft);}
+
+  /* group / whatsapp section */
+  .group-panel{
+    background:var(--ink);
+    color:var(--white);
+    border-radius:16px;
+    padding:48px 44px;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:44px;
+    align-items:center;
+  }
+  .group-panel h2{color:var(--white); font-size:clamp(26px,3vw,34px);}
+  .group-panel p{color:#C9CCDB; font-size:15.5px;}
+  .btn-whatsapp{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--whatsapp);
+    color:var(--white);
+    padding:14px 26px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15.5px;
+    margin-top:8px;
+    width:fit-content;
+  }
+  .btn-whatsapp:hover{background:var(--whatsapp-deep);}
+  .btn-whatsapp svg{flex-shrink:0;}
+  .activity-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .activity-item{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:16px;
+    padding:16px 0;
+    border-top:1px solid #33395A;
+  }
+  .activity-item:last-child{padding-bottom:0;}
+  .activity-day{
+    font-family:'Fraunces', serif;
+    font-size:14px;
+    color:var(--yellow);
+  }
+  .activity-item h3{font-size:15.5px; color:var(--white); margin-bottom:2px;}
+  .activity-item p{font-size:13.5px; color:#C9CCDB; margin:0;}
+  .group-note{
+    margin-top:20px;
+    font-size:13px;
+    color:#9BA0BE;
+  }
+
+  /* depoimentos */
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .testimonial-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:28px 26px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .testimonial-mark{
+    font-family:'Fraunces', serif;
+    font-size:40px;
+    color:var(--yellow);
+    line-height:1;
+  }
+  .testimonial-text{
+    font-size:15px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .testimonial-author{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    margin-top:auto;
+    padding-top:12px;
+    border-top:1px solid var(--line);
+  }
+  .testimonial-name{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    color:var(--ink);
+  }
+  .testimonial-role{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .testimonial-note{
+    margin-top:28px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .testimonial-cta{
+    margin-top:8px;
+    display:inline-block;
+    font-size:14px;
+    font-weight:600;
+  }
+
+  /* footer */
+  footer{
+    background:var(--paper-alt);
+    border-top:1px solid var(--line);
+    padding:48px 0 36px;
+  }
+  .footer-grid{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  footer p, footer a{font-size:13.5px; color:var(--ink-soft);}
+  .sources{margin-top:26px; font-size:12.5px; color:#8A8776; max-width:820px;}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr; padding-top:52px;}
+    .ribbon-frame{order:-1; max-width:240px; margin:0 auto;}
+    .two-col{grid-template-columns:1fr; gap:44px;}
+    .stat-row{grid-template-columns:1fr;}
+    .participate-list{grid-template-columns:1fr;}
+    .help-banner{grid-template-columns:1fr;}
+    .mf-row, .mf-head{grid-template-columns:1fr;}
+    .mf-cell.myth{border-right:none; border-bottom:1px solid var(--line);}
+    .mf-head div:first-child{display:none;}
+    .chat-panel{grid-template-columns:1fr;}
+    .chat-frame-wrap{border-left:none; border-top:1px solid var(--line);}
+    .group-panel{grid-template-columns:1fr;}
+    .testimonial-grid{grid-template-columns:1fr;}
+    .section{padding:56px 0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<div class="crisis-bar">
+  <span>Precisa conversar agora? O <strong>CVV</strong> escuta, sem julgamento, 24 horas por dia.</span>
+  <a class="call" href="tel:188">Ligar 188</a>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Campanha nacional de prevenção ao suicídio</p>
+      <h1>Setembro Amarelo</h1>
+      <span class="hero-theme">Tema 2026 — Escutar é estar presente</span>
+      <p class="hero-lede">Todo mês de setembro, o Brasil se une para falar abertamente sobre saúde mental, romper o silêncio em torno do suicídio e lembrar a quem sofre que existe ajuda — e que pedir ajuda é um gesto de coragem, não de fraqueza.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#ajuda">Onde buscar ajuda</a>
+        <a class="btn btn-ghost" href="#chatbot">Falar com o assistente</a>
+        <a class="btn btn-ghost" href="#grupo">Grupo e atividades</a>
+        <a class="btn btn-ghost" href="#depoimentos">Depoimentos</a>
+      </div>
+    </div>
+    <div class="ribbon-frame" aria-hidden="true">
+      <svg width="220" height="300" viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+        <path d="M110 20 C60 60, 40 110, 60 160 C70 185, 95 195, 110 210 C125 195, 150 185, 160 160 C180 110, 160 60, 110 20 Z"
+              fill="none" stroke="#F5B700" stroke-width="26" stroke-linejoin="round"/>
+        <path d="M95 205 L45 290 L85 280 L100 300 L110 235 Z" fill="#F5B700"/>
+        <path d="M125 205 L175 290 L135 280 L120 300 L110 235 Z" fill="#B8830A"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <section class="section" id="o-que-e">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">O que é</p>
+        <h2>Uma conversa que o Brasil decidiu não adiar mais</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <p>O Setembro Amarelo é a principal campanha brasileira de prevenção ao suicídio e valorização da vida. Ao longo do mês, hospitais, escolas, empresas e famílias se mobilizam para colocar a saúde mental no centro da conversa — não como um tabu, mas como um assunto que diz respeito a todo mundo.</p>
+          <p>O amarelo foi escolhido em referência ao movimento internacional do laço amarelo, símbolo que nasceu nos Estados Unidos como homenagem a um jovem que havia perdido a vida para o suicídio, e que se espalhou pelo mundo como marca da prevenção.</p>
+        </div>
+        <div>
+          <p>No Brasil, a campanha nasceu do trabalho conjunto do Centro de Valorização da Vida (CVV), do Conselho Federal de Medicina (CFM) e da Associação Brasileira de Psiquiatria (ABP), unindo o cuidado voluntário e o conhecimento técnico em torno de uma mesma causa.</p>
+          <p>A base da campanha é simples de enunciar e difícil de praticar todos os dias: falar sobre o assunto salva vidas, e escutar sem pressa e sem julgamento costuma ser o primeiro passo para que alguém em sofrimento aceite buscar ajuda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Como chegamos até aqui</p>
+        <h2>Uma linha do tempo da causa</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">1962</span>
+          <p>O Centro de Valorização da Vida (CVV) é fundado em São Paulo, tornando-se uma das organizações de apoio emocional voluntário mais antigas do país.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2003</span>
+          <p>A Associação Internacional para Prevenção do Suicídio, com apoio da Organização Mundial da Saúde, institui o dia 10 de setembro como o Dia Mundial de Prevenção do Suicídio.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2015</span>
+          <p>CVV, Conselho Federal de Medicina e Associação Brasileira de Psiquiatria lançam oficialmente o Setembro Amarelo no Brasil, associando a cor amarela ao mês da data mundial.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Hoje</span>
+          <p>O CVV mantém cerca de 90 postos e milhares de voluntários em todo o país, atendendo por telefone, chat, e-mail e presencialmente, 24 horas por dia, todos os dias do ano.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Por que isso importa</p>
+        <h2>Um problema de saúde pública, não uma fraqueza individual</h2>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num">4ª</span>
+          <span class="stat-label">causa de morte entre jovens de 15 a 29 anos no Brasil, atrás de acidentes de trânsito, tuberculose e violência interpessoal</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">700 mil+</span>
+          <span class="stat-label">pessoas morrem por suicídio todos os anos no mundo, segundo estimativas da Organização Mundial da Saúde</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">188</span>
+          <span class="stat-label">número gratuito e sigiloso do CVV, disponível 24 horas por dia em todo o Brasil</span>
+        </div>
+      </div>
+      <p class="stat-note">A maioria dos casos de suicídio está associada a transtornos mentais tratáveis, como depressão e ansiedade — condições que afetam mais de um bilhão de pessoas no mundo. Isso significa que prevenção, diagnóstico e acesso ao cuidado fazem diferença real.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Fique atento</p>
+        <h2>Sinais que merecem atenção e cuidado</h2>
+        <p style="margin-top:14px; color:var(--ink-soft); font-size:15px;">Nenhum sinal isolado confirma um risco, mas mudanças assim, especialmente quando aparecem juntas ou de forma repentina, são um convite para se aproximar e perguntar com cuidado como a pessoa está.</p>
+      </div>
+      <div class="signs-list">
+        <div class="sign-row">
+          <span class="sign-mark">01</span>
+          <div>
+            <h3>Isolamento e afastamento</h3>
+            <p>Deixar de responder mensagens, evitar encontros, se afastar de atividades e pessoas que antes eram importantes.</p>
+          </div>
+        </div>
+        <div class="sign-row">
+          <span class="sign-mark">02</span>
+          <div>
+            <h3>Fala sobre desesperança ou ser um peso</h3>
+            <p>Comentários como "seria mais fácil se eu não existisse" ou "não vejo saída" merecem ser levados a sério, nunca ignorados.</p>
+          </div>
+        </div>
+        <div class="sign-row">
+          <span class="sign-mark">03</span>
+          <div>
+            <h3>Mudanças bruscas de humor ou comportamento</h3>
+            <p>Tristeza profunda seguida de uma calma repentina e inexplicável pode indicar que a pessoa já tomou uma decisão — e é um sinal de alerta importante.</p>
+          </div>
+        </div>
+        <div class="sign-row">
+          <span class="sign-mark">04</span>
+          <div>
+            <h3>Alterações no sono, apetite ou energia</h3>
+            <p>Dormir muito mais ou muito menos, perder o interesse por comida ou atividades que antes davam prazer.</p>
+          </div>
+        </div>
+        <div class="sign-row">
+          <span class="sign-mark">05</span>
+          <div>
+            <h3>Se despedir ou organizar as próprias coisas</h3>
+            <p>Doar objetos de valor pessoal, escrever cartas de despedida ou "colocar a vida em ordem" sem motivo aparente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Desfazendo ideias erradas</p>
+        <h2>Mitos e verdades sobre o suicídio</h2>
+      </div>
+      <div class="mf-head">
+        <div>Mito</div>
+        <div>Verdade</div>
+      </div>
+      <div class="mf-row">
+        <div class="mf-cell myth"><span class="mf-tag">MITO</span><p>Perguntar diretamente sobre o assunto planta a ideia na cabeça da pessoa.</p></div>
+        <div class="mf-cell fact"><span class="mf-tag">VERDADE</span><p>Perguntar com cuidado não induz o comportamento — geralmente é um alívio para quem já pensava nisso sozinho.</p></div>
+      </div>
+      <div class="mf-row">
+        <div class="mf-cell myth"><span class="mf-tag">MITO</span><p>Quem quer fazer isso não avisa antes.</p></div>
+        <div class="mf-cell fact"><span class="mf-tag">VERDADE</span><p>A maioria das pessoas dá sinais, diretos ou indiretos, antes de uma tentativa.</p></div>
+      </div>
+      <div class="mf-row">
+        <div class="mf-cell myth"><span class="mf-tag">MITO</span><p>Falar abertamente sobre o tema aumenta o risco.</p></div>
+        <div class="mf-cell fact"><span class="mf-tag">VERDADE</span><p>Falar de forma responsável reduz o estigma e facilita que a pessoa peça ajuda.</p></div>
+      </div>
+      <div class="mf-row">
+        <div class="mf-cell myth"><span class="mf-tag">MITO</span><p>É um problema só de quem tem um transtorno mental grave.</p></div>
+        <div class="mf-cell fact"><span class="mf-tag">VERDADE</span><p>Fatores sociais, emocionais e financeiros também pesam — qualquer pessoa pode atravessar um momento assim.</p></div>
+      </div>
+      <div class="mf-row">
+        <div class="mf-cell myth"><span class="mf-tag">MITO</span><p>Quando a crise passa, o risco desaparece para sempre.</p></div>
+        <div class="mf-cell fact"><span class="mf-tag">VERDADE</span><p>O acompanhamento contínuo, com apoio profissional e da rede próxima, segue sendo importante depois da crise.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Como agir</p>
+        <h2>O que fazer quando alguém precisa de você</h2>
+      </div>
+      <div class="two-col">
+        <div class="help-list">
+          <div class="help-item">
+            <h3>Escute sem pressa e sem julgar</h3>
+            <p>Você não precisa ter a resposta certa. Estar presente, com atenção genuína, já ajuda.</p>
+          </div>
+          <div class="help-item">
+            <h3>Pergunte diretamente, com cuidado</h3>
+            <p>"Você chegou a pensar em se machucar ou tirar a própria vida?" é uma pergunta que pode ser feita com carinho, sem rodeios.</p>
+          </div>
+          <div class="help-item">
+            <h3>Leve a sério qualquer sinal</h3>
+            <p>Evite frases como "isso vai passar" ou "pense pelo lado bom". Reconheça a dor da pessoa como real.</p>
+          </div>
+          <div class="help-item">
+            <h3>Ajude a buscar apoio profissional</h3>
+            <p>Ofereça-se para ligar junto para o CVV, acompanhar a um posto de saúde ou marcar uma consulta.</p>
+          </div>
+          <div class="help-item">
+            <h3>Não deixe a pessoa sozinha em um momento de crise aguda</h3>
+            <p>Permaneça por perto ou acione alguém de confiança e, se necessário, um serviço de emergência.</p>
+          </div>
+        </div>
+        <div>
+          <p>Cuidar de quem cuida também importa. Apoiar alguém em sofrimento pode ser desgastante — procure conversar com outras pessoas de confiança, dividir a responsabilidade e buscar orientação profissional para você também.</p>
+          <p>Se você mesmo está passando por um momento difícil, os mesmos canais de ajuda listados abaixo estão abertos para você. Pedir ajuda é, sempre, um passo válido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ajuda">
+    <div class="wrap">
+      <div class="help-banner">
+        <div>
+          <h2>Ajuda existe, é gratuita e está disponível agora</h2>
+          <p>Nenhuma dor precisa ser enfrentada sozinha. Os canais abaixo funcionam todos os dias, com sigilo, para quem quer conversar e para quem quer apoiar alguém.</p>
+        </div>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span class="contact-name">CVV — apoio emocional, telefone, chat e e-mail<br>Gratuito e sigiloso, 24h</span>
+            <span class="contact-value">188</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-name">SAMU — emergências de saúde</span>
+            <span class="contact-value">192</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-name">CAPS e Unidades Básicas de Saúde</span>
+            <span class="contact-value">SUS</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-name">Chat e mais informações</span>
+            <span class="contact-value" style="font-size:16px;">cvv.org.br</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="chatbot">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Tire suas dúvidas</p>
+        <h2>Converse com o assistente do Setembro Amarelo</h2>
+      </div>
+      <div class="chat-panel">
+        <div class="chat-intro">
+          <p>Nosso assistente virtual está disponível para responder dúvidas sobre a campanha, explicar sinais de alerta, indicar canais de apoio e ajudar você a encontrar informações rapidamente.</p>
+          <ul class="chat-bullets">
+            <li>Explica a campanha e seus objetivos</li>
+            <li>Indica onde buscar apoio profissional e canais de ajuda</li>
+            <li>Tira dúvidas sobre o grupo e as atividades do Setembro Amarelo</li>
+          </ul>
+          <p style="font-size:13px; color:var(--ink-soft);">O assistente é um recurso informativo e não substitui atendimento profissional. Em caso de risco imediato, ligue 188 ou 192.</p>
+          <a class="btn-chat" href="#" id="chatbot-open-link" target="_blank" rel="noopener">Abrir assistente em nova aba</a>
+        </div>
+        <div class="chat-frame-wrap">
+          <div class="chat-frame-bar"><span class="dot" aria-hidden="true"></span> Assistente Setembro Amarelo</div>
+          
+
+          <iframe class="chat-frame" src="https://character.ai/chat/g7bNSooC9pgJO6U1QCv4e32qa2nThLIweI4D9BZ6BXc" title="Assistente virtual do Setembro Amarelo" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="grupo">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Junte-se a nós</p>
+        <h2>Grupo e atividades do Setembro Amarelo</h2>
+      </div>
+      <div class="group-panel">
+        <div>
+          <h2>Participe do nosso grupo no WhatsApp</h2>
+          <p>Receba avisos sobre rodas de conversa, encontros e materiais da campanha, e converse com outras pessoas engajadas na causa. O grupo é um espaço de apoio e troca — não um canal de atendimento de crise.</p>
+          <a class="btn-whatsapp" href="https://chat.whatsapp.com/FwlTycnOlWNCPetefJu2Uu?s=cl&p=a&mlu=4&ilr=4" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.78 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.13.11-1.83-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.27-.29.58-.36.78-.36.19 0 .39 0 .55.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.02 1.12.99 2.06 1.3 2.36 1.45.29.14.46.12.63-.07.17-.19.72-.83.91-1.12.19-.29.38-.24.63-.15.26.1 1.65.78 1.94.92.28.15.47.22.54.34.07.13.07.72-.17 1.4z"/></svg>
+            Entrar no grupo do WhatsApp
+          </a>
+          <p class="group-note">Ao entrar no grupo, seu número fica visível para os demais participantes, conforme as regras do próprio WhatsApp.</p>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <span class="activity-day">Semana 1</span>
+            <div>
+              <h3>Roda de conversa aberta</h3>
+              <p>Encontro para falar sobre saúde mental em um ambiente acolhedor e sem julgamento.</p>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-day">Semana 2</span>
+            <div>
+              <h3>Oficina "Como escutar"</h3>
+              <p>Prática de escuta ativa para apoiar amigos e familiares em momentos difíceis.</p>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-day">Semana 3</span>
+            <div>
+              <h3>Bate-papo com convidado</h3>
+              <p>Conversa com profissional de saúde mental sobre prevenção ao suicídio.</p>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-day">Semana 4</span>
+            <div>
+              <h3>Encerramento e balanço</h3>
+              <p>Encontro final para compartilhar aprendizados e planejar as próximas ações do grupo.</p>
+            </div>
+          </div>
+          <p class="group-note">Ajuste as atividades e datas acima de acordo com o calendário real do seu grupo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="depoimentos">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Quem já participou</p>
+        <h2>Depoimentos de quem faz parte do grupo</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <span class="testimonial-mark" aria-hidden="true">“</span>
+          <p class="testimonial-text">Entrar no grupo foi o empurrão que eu precisava para procurar ajuda profissional. Aqui ninguém julga, só escuta.</p>
+          <div class="testimonial-author">
+            <span class="testimonial-name">Participante do grupo</span>
+            <span class="testimonial-role">Setembro Amarelo, edição 2025</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="testimonial-mark" aria-hidden="true">“</span>
+          <p class="testimonial-text">A roda de conversa me ensinou a escutar meu filho sem tentar consertar tudo na hora. Mudou nossa relação.</p>
+          <div class="testimonial-author">
+            <span class="testimonial-name">Familiar de participante</span>
+            <span class="testimonial-role">Oficina "Como escutar"</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="testimonial-mark" aria-hidden="true">“</span>
+          <p class="testimonial-text">Como voluntário, vejo todo mês pessoas encontrando coragem para pedir ajuda depois de participar das atividades.</p>
+          <div class="testimonial-author">
+            <span class="testimonial-name">Voluntário(a) da campanha</span>
+            <span class="testimonial-role">Equipe de apoio</span>
+          </div>
+        </div>
+      </div>
+      <a class="testimonial-cta" href="#grupo">Quero fazer parte e compartilhar minha experiência →</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">O papel de cada um</p>
+        <h2>Como a sociedade participa do Setembro Amarelo</h2>
+      </div>
+      <div class="participate-list">
+        <div class="participate-item">
+          <h3>Em casa e entre amigos</h3>
+          <p>Pergunte como as pessoas estão de verdade, e ouça a resposta até o fim, sem pressa para mudar de assunto.</p>
+        </div>
+        <div class="participate-item">
+          <h3>Nas escolas</h3>
+          <p>Rodas de conversa e formação de professores ajudam a identificar sinais precocemente e a orientar famílias.</p>
+        </div>
+        <div class="participate-item">
+          <h3>Nas empresas</h3>
+          <p>Programas de saúde mental, escuta ativa entre lideranças e divulgação clara dos canais de apoio fazem diferença.</p>
+        </div>
+        <div class="participate-item">
+          <h3>Nas redes sociais</h3>
+          <p>Compartilhe informação responsável, evite detalhes sensíveis, e sempre inclua os canais de ajuda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <p class="serif" style="font-size:18px; color:var(--ink);">Setembro Amarelo</p>
+        <p>Escutar é estar presente.</p>
+      </div>
+      <div>
+        <p>CVV — Centro de Valorização da Vida<br><a href="https://www.cvv.org.br">cvv.org.br</a></p>
+      </div>
+    </div>
+    <p class="sources">Conteúdo educativo baseado em informações públicas do Centro de Valorização da Vida (CVV), da Associação Brasileira de Psiquiatria, do Conselho Federal de Medicina e da Organização Mundial da Saúde. Este site não substitui avaliação, diagnóstico ou tratamento profissional. Em caso de risco imediato, ligue 188 ou procure o serviço de emergência mais próximo.</p>
+  </div>
+</footer>
+
+<script>
+  // Substitua pela URL real do seu chatbot publicado no Vercel.
+  var CHATBOT_URL = "https://character.ai/chat/g7bNSooC9pgJO6U1QCv4e32qa2nThLIweI4D9BZ6BXc";
+  var openLink = document.getElementById("chatbot-open-link");
+  if (openLink) { openLink.setAttribute("href", CHATBOT_URL); }
+</script>
+
+</body>
+</html>
